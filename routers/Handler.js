@@ -1,7 +1,6 @@
 const models = require('../models');
 const jwt = require('jsonwebtoken')
 const loginuser = async (req, res, next) => {
-
     const user = await models.User.findOne({
         where: {
             username: req.body.username,
@@ -44,20 +43,54 @@ const loginadmin = async (req, res, next) => {
         }
     })
 }
-// const deleteAdmin=async(req,res,next)=>{
-//     try{
-//     await models.Admin.destroy({where:{},truncate:true})
-//     res.status(201).json({
-// })
-//     }
-//     catch(e){
-//         res.status(404).json({
-//             success: false,
-//             message: "could not signup",
-//             error
-//         })
-//     }
-// }
+const del=async(req,res,next)=>{
+    try{
+    await models.Topic.destroy({where:{
+        topicname:req.params.tname
+    }})
+    res.status(201).json({
+})
+    }
+    catch(e){
+        res.status(404).json({
+            success: false,
+            message: "could not signup",
+            error
+        })
+    }
+}
+const delcont=async(req,res,next)=>{
+    try{
+    await models.Content.destroy({where:{
+        contentname:req.params.contname
+    }})
+    res.status(201).json({
+})
+    }
+    catch(e){
+        res.status(404).json({
+            success: false,
+            message: "could not signup",
+            error
+        })
+    }
+}
+const deleteCourse=async(req,res,next)=>{
+    try{
+    await models.Course.destroy({where:{
+        coursename:req.params.cname
+    }})
+    res.status(201).json({
+})
+    }
+    catch(e){
+        res.status(404).json({
+            success: false,
+            message: "could not signup",
+            error
+        })
+    }
+}
 const createUser = async (req, res, next) => {
     try {
         
@@ -124,15 +157,6 @@ const createAdmin = async (req, res, next) => {
 }
 const createCourse = async (req, res, next) => {
     try {
-        // const token = req.headers['access-token']
-        // console.log(token)
-        // const payload = jwt.decode(token)
-        // console.log(payload)
-        // const user = await models.Admin.findOne({
-        //     where: {
-        //         username: payload.username
-        //     }
-        // })
         const activity = { ...req.body }
         const act = await models.Course.create(activity)
         if(act)
@@ -161,19 +185,26 @@ const updateCourse=async (req,res,next)=>{
         next(error)
     }
 }
+const updateTopic=async (req,res,next)=>{
+    try {
+        const user = await models.Topic.update(req.body, {
+            where: {
+                topicname: req.params.name
+            }
+        })
+        res.status(200).json({})
+    } catch (error) {
+        next(error)
+    }
+}
 const createTopic = async (req, res, next) => {
     try {
-        // const token = req.headers['access-token']
-        // console.log(token)
-        // const payload = jwt.decode(token)
-        // console.log(payload)
         const user = await models.Course.findOne({
             where: {
                 coursename: req.params.coname
             }
         })
         const topic = { ...req.body ,courseId:user.id}
-        // console.log(topic)
         const act = await models.Topic.create(topic)
         res.status(200).json({
             act
@@ -194,12 +225,9 @@ const addContent = async (req, res, next) => {
             }
         })
         console.log(topic.id)
-        // if(topic){
-
         const content = { ...req.body ,TopicId:topic.id}
         console.log(content)
         const act = await models.Content.create(content)
-    //  }
         res.status(200).json({
             act
         })
@@ -271,4 +299,4 @@ const getCourse = async (req, res, next) => {
         })
     }
 }
-module.exports={loginuser,createTopic,getTopic,createUser,loginadmin,createCourse,getCourse,updateCourse,getContent,addContent}
+module.exports={loginuser,del,delcont,deleteCourse,createTopic,getTopic,updateTopic,createUser,loginadmin,createCourse,getCourse,updateCourse,getContent,addContent}
