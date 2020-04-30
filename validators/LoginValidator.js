@@ -4,7 +4,7 @@ const LoginValidate = async (req, res, next) => {
 
   try {
     const signupDataSchema = Joi.object({
-      username: Joi.string().required(),
+      username: Joi.string().min(1).max(20).required(),
       password: Joi.string().alphanum().min(1).max(30).required(),
     })
 
