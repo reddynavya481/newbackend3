@@ -14,3 +14,9 @@ app.listen(port, (error) => {
         console.log("Server started on port " + port);
     }
 })
+app.use((error, req, res, next) => {
+    res.status(500).json({
+        success: false,
+        error,
+    })
+});

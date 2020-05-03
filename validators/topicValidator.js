@@ -12,8 +12,9 @@ const topicValidate = async (req, res, next) => {
   }
   catch (error) {
     res.status(400).json({
-      success: false,
+      status: "fail",
       message: error.details[0].message
     })
   }
 }
+module.exports=topicValidate

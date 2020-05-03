@@ -1,3 +1,16 @@
+/**
+ * @description Represents updating a topic
+ * @param {object} req - Request object containing attributes params,topicname
+ * @param {object} res - Response object which indicates status like success or error
+ * @param {requestCallback} next - The callback used to call the middleware.
+ * @returns {Promise}
+ */
+/**
+ * Global Callback
+ * @callback requestCallback
+ * @param {object} error
+ */
+
 const models = require('../../models');
 const updateTopic = async (req, res, next) => {
     try {
@@ -16,6 +29,7 @@ const updateTopic = async (req, res, next) => {
             message: "topic updated",
             user
         })
+        logger.info({ topicname: req.params.name, action: "update" })
     } catch (error) {
         res.status(400).json({
             status: "fail",
@@ -25,4 +39,4 @@ const updateTopic = async (req, res, next) => {
         next(error)
     }
 }
-module.exports =updateTopic
+module.exports = updateTopic

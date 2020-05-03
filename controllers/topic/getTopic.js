@@ -1,3 +1,16 @@
+/**
+ * @description Represents retrieving a topic
+ * @param {object} req - Request object containing attributes params,topicname
+ * @param {object} res - Response object which indicates status like success or error
+ * @param {requestCallback} next - The callback used to call the middleware.
+ * @returns {Promise}
+ */
+/**
+ * Global Callback
+ * @callback requestCallback
+ * @param {object} error
+ */
+
 const models = require('../../models');
 const getTopic = async (req, res, next) => {
   try {
@@ -27,6 +40,7 @@ const getTopic = async (req, res, next) => {
       message: "topics retreived",
       course
     })
+    logger.info({ course_name: req.params.cname, action: "findall" })
   }
   catch (error) {
     res.status(404).json({
@@ -34,6 +48,7 @@ const getTopic = async (req, res, next) => {
       message: "not found",
       error
     })
+    next(error)
   }
 }
-module.exports =getTopic
+module.exports = getTopic

@@ -1,3 +1,18 @@
+/**
+ * @description Represents retreiving course
+ * @param {object} req - Request object containing all attributes of content
+ * @param {object} res - Response object which indicates status like success or error
+ * @param {requestCallback} next - The callback used to call the middleware.
+ * @returns {Promise}
+ * @exports getContent
+ */
+/**
+ * Global Callback
+ * @callback requestCallback
+ * @param {object} error
+ */
+
+
 const models = require('../../models');
 const getContent = async (req, res, next) => {
   try {
@@ -8,9 +23,11 @@ const getContent = async (req, res, next) => {
       })
       if (!user) {
           res.status(204).json({
-              message: "no yopic found",
+              message: "no topic found",
           })
       }
+      else{
+        logger.info({ topic_name:req.params.tname,action: "findOne"})
       const course = await models.Content.findAll({
           where: {
               TopicId: user.id
@@ -21,12 +38,15 @@ const getContent = async (req, res, next) => {
               message: "no content found",
           })
       }
+      else{
       res.status(200).json({
           status: "success",
           message: "contents retreived",
           course
       })
-  }
+      logger.info({action: "findAll"})
+  }}
+}
   catch (error) {
       res.status(404).json({
           status: "fail",
