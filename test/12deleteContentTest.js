@@ -1,6 +1,7 @@
-const app = require("../index");
+const app = require("../routers/index");
 const chai = require("chai");
 const chaiHttp = require("chai-http");
+// const addContent=require("./addContentTest")
 const { expect } = chai;
 chai.use(chaiHttp);
 // router.delete('/del/:tname', delTopic)
@@ -13,7 +14,7 @@ describe("DELETE /delcont/:contname", () => {
     if (response.error == false) {
       expect(response.body).be.a('object')
       expect(response.body).to.have.property('status')
-      expect(response).to.have.status(201);
+      expect(response).to.have.status(200);
       expect(response.body).to.have.property('status').to.equal("success")
     }
     else {

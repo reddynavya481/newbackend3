@@ -10,7 +10,7 @@
  * @callback requestCallback
  * @param {object} error
  */
-
+const logger = require('../../logger')
 const models = require('../../models');
 const updateTopic = async (req, res, next) => {
     try {
@@ -21,6 +21,7 @@ const updateTopic = async (req, res, next) => {
         })
         if (!user) {
             res.status(204).json({
+                status: "success",
                 message: "no record found",
             })
         }

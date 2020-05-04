@@ -1,17 +1,18 @@
-const app = require("../index");
+const app = require("../routers/index");
 const chai = require("chai");
 const chaiHttp = require("chai-http");
 const { expect } = chai;
 chai.use(chaiHttp);
-describe("GET /getcourse", () => {
-  it("gets course", async () => {
+// router.get('/content/:tname', getContent)
+describe("GET /content/:tname", () => {
+  it("gets contents present in topic", async () => {
     let response = await chai
       .request(app)
-      .get("/getcourse")
+      .get("/content/"+"mlpart1")
     if (response.error == false) {
       expect(response.body).be.a('object')
       expect(response.body).to.have.property('status')
-      expect(response).to.have.status(201);
+      expect(response).to.have.status(200);
       expect(response.body).to.have.property('status').to.equal("success")
     }
     else {

@@ -12,7 +12,7 @@
  */
 
 
-
+const logger = require('../../logger')
 const models = require('../../models');
 const jwt = require('jsonwebtoken')
 const loginuser = async (req, res, next) => {
@@ -24,10 +24,11 @@ const loginuser = async (req, res, next) => {
   if (!user) {
     logger.error("User not found")
     return res.status(401).json({
+      success: false,
       message: 'Authentication failed. User not found.',
     });
   }
-  logger.info({ username:req.body.username,action: "findOne"})
+  logger.info({ username: req.body.username, action: "findOne" })
   user.comparePassword(req.body.password, (err, isMatch) => {
     if (isMatch && !err) {
       var token = jwt.sign({ username: req.body.username }, 'nodeauthsecret');

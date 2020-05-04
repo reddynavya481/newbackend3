@@ -17,7 +17,7 @@
 
 
 const models = require('../../models');
-
+const logger=require('../../logger')
 const createUser = async (req, res, next) => {
   try {
     const users = await models.User.findOne({

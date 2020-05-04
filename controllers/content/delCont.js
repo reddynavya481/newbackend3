@@ -11,7 +11,7 @@
  * @callback requestCallback
  * @param {object} error
  */
-
+const logger=require('../../logger')
 const models = require('../../models');
 const delcont = async (req, res, next) => {
   try {

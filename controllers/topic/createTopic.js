@@ -11,7 +11,7 @@
  * @param {object} error
  */
 
-
+const logger=require('../../logger')
 const models = require('../../models');
 const createTopic = async (req, res, next) => {
     try {

@@ -1,5 +1,17 @@
 const express = require('express');
-const router = express.Router();
+// const app = express.Router();
+// const express = require('express');
+const bodyParser = require('body-parser');
+const app = express();
+const cors=require('cors')
+// const apps = require('./apps');
+app.use(bodyParser.json()); 
+const port = 8000;
+app.use(cors())
+// app.use('/', apps);
+
+
+
 const createUser = require('../controllers/login/userRegister')
 const loginuser = require('../controllers/login/userLogin')
 const loginadmin = require('../controllers/login/adminLogin')
@@ -23,22 +35,30 @@ const addContent = require('../controllers/content/createCont')
 const delcont = require('../controllers/content/delCont')
 const contV = require('../validators/contentValidator')
 
-router.post('/loginuser', loginuser)
-router.post('/loginadmin', loginadmin)
-router.post('/registeruser', createUser)
+app.post('/loginuser', loginuser)
+app.post('/loginadmin', loginadmin)
+app.post('/registeruser', createUser)
 
-router.delete('/delete/:cname', deleteCourse)
-router.post('/course', courseV, createCourse)
-router.put('/course/:id', updateCourse)
-router.get('/getcourse', getCourse)
+app.delete('/delete/:cname', deleteCourse)
+app.post('/course', courseV, createCourse)
+app.put('/course/:id', updateCourse)
+app.get('/getcourse', getCourse)
 
-router.delete('/del/:tname', delTopic)
-router.patch('/topic3/:name', updateTopic)
-router.post('/topic1/:coname', topicV, createTopic)
-router.get('/topic/:cname', getTopic)
+app.delete('/del/:tname', delTopic)
+app.patch('/topic3/:name', updateTopic)
+app.post('/topic1/:coname', topicV, createTopic)
+app.get('/topic/:cname', getTopic)
 
-router.post('/content1/:toname', contV, addContent)
-router.delete('/delcont/:contname', delcont)
-router.get('/content/:tname', getContent)
+app.post('/content1/:toname', contV, addContent)
+app.delete('/delcont/:contname', delcont)
+app.get('/content/:tname', getContent)
 
-module.exports = router;
+app.listen(port, (error) => {
+  if (error) {
+      console.log(error);
+  } else {
+      console.log("Server started on port " + port);
+  }
+})
+
+module.exports = app;

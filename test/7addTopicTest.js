@@ -1,16 +1,15 @@
-const app = require("../index");
+const app = require("../routers/index");
 const chai = require("chai");
 const chaiHttp = require("chai-http");
 const { expect } = chai;
 chai.use(chaiHttp);
-describe("POST /loginuser", () => {
-  it("loginuser", async () => {
+module.exports=describe("POST /topic1/:coname", () => {
+  it("add topic", async () => {
     let response = await chai
       .request(app)
-      .post("/loginuser")
+      .post("/topic1/"+"machine learning")
       .send({
-       "username": "navya",
-        "password": "abc"
+       "topicname": "ml basics"
       })
       if (response.error == false) {
         expect(response.body).be.a('object')

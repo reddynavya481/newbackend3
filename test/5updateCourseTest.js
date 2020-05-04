@@ -1,22 +1,23 @@
-const app = require("../index");
+const app = require("../routers/index");
 const chai = require("chai");
 const chaiHttp = require("chai-http");
 const { expect } = chai;
+// const addCourseTest=require('./addCourseTest')
 chai.use(chaiHttp);
-// router.post('/content1/:toname', contV, addContent)
-describe("POST /content1/:toname", () => {
-  it("add content to a topic", async () => {
+module.exports=describe("PUT /course", () => {
+  it("update course", async () => {
     let response = await chai
       .request(app)
-      .post("/content1/" + "iot part1")
+      .put("/course/" + 2)
       .send({
-        "contentname": "content1",
-        "contenturl": "https://www.youtube.com/watch?v=Y9PhWggKoz8"
+        "coursename": "iothjknnmj",
+        "authorname": "rameswar",
+        "description": "it introduces the basic concepts,uses and applications of iot"
       })
     if (response.error == false) {
       expect(response.body).be.a('object')
       expect(response.body).to.have.property('status')
-      expect(response).to.have.status(201);
+      expect(response).to.have.status(200);
       expect(response.body).to.have.property('status').to.equal("success")
     }
     else {

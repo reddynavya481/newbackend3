@@ -13,6 +13,7 @@
  */
 
 const models = require('../../models');
+const logger = require('../../logger')
 const addContent = async (req, res, next) => {
   try {
     const topic = await models.Topic.findOne({
@@ -20,7 +21,7 @@ const addContent = async (req, res, next) => {
         topicname: req.params.toname
       }
     })
-    logger.info({ topic_name:req.params.toname,action: "findOne"})
+    logger.info({ topic_name: req.params.toname, action: "findOne" })
     const content = { ...req.body, TopicId: topic.id }
     const act = await models.Content.create(content)
     res.status(201).json({
@@ -28,7 +29,7 @@ const addContent = async (req, res, next) => {
       message: "content added",
       act
     })
-    logger.info({...req.body,action: "create"})
+    logger.info({ ...req.body, action: "create" })
   }
   catch (error) {
     logger.error("could not add content")

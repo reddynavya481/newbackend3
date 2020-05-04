@@ -1,18 +1,18 @@
-const app = require("../index");
+const app = require("../routers/index");
 const chai = require("chai");
 const chaiHttp = require("chai-http");
+// const update=require('./updateTopicTest')
 const { expect } = chai;
 chai.use(chaiHttp);
-// router.delete('/del/:tname', delTopic)
-describe("DELETE /del/:tname", () => {
-  it("deletes specified topic", async () => {
+module.exports=describe("GET /topic/:cname", () => {
+  it("gets topics present in course", async () => {
     let response = await chai
       .request(app)
-      .delete("/del/" + "iot part1")
+      .get("/topic/" + "machine learning")
     if (response.error == false) {
       expect(response.body).be.a('object')
       expect(response.body).to.have.property('status')
-      expect(response).to.have.status(201);
+      expect(response).to.have.status(200);
       expect(response.body).to.have.property('status').to.equal("success")
     }
     else {

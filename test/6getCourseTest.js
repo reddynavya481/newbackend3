@@ -1,18 +1,18 @@
-const app = require("../index");
+const app = require("../routers/index");
 const chai = require("chai");
 const chaiHttp = require("chai-http");
+// const updateCourse=require("./updateCourseTest")
 const { expect } = chai;
 chai.use(chaiHttp);
-// router.get('/content/:tname', getContent)
-describe("GET /content/:tname", () => {
-  it("gets contents present in topic", async () => {
+module.exports=describe("GET /getcourse", () => {
+  it("gets course", async () => {
     let response = await chai
       .request(app)
-      .get("/content/"+"iot part1")
+      .get("/getcourse")
     if (response.error == false) {
       expect(response.body).be.a('object')
       expect(response.body).to.have.property('status')
-      expect(response).to.have.status(201);
+      expect(response).to.have.status(200);
       expect(response.body).to.have.property('status').to.equal("success")
     }
     else {

@@ -1,20 +1,19 @@
-const app = require("../index");
+const app = require("../routers/index");
 const chai = require("chai");
 const chaiHttp = require("chai-http");
 const { expect } = chai;
+// const get=require('./getTopicTest')
 chai.use(chaiHttp);
-describe("PATCH /topic3/:name", () => {
-  it("update course", async () => {
+// router.delete('/del/:tname', delTopic)
+describe("DELETE /del/:tname", () => {
+  it("deletes specified topic", async () => {
     let response = await chai
       .request(app)
-      .put("/topic3/" + "iot basics")
-      .send({
-        "topicname": "iot part1",
-      })
+      .delete("/del/" + "mlpart1")
     if (response.error == false) {
       expect(response.body).be.a('object')
       expect(response.body).to.have.property('status')
-      expect(response).to.have.status(201);
+      expect(response).to.have.status(200);
       expect(response.body).to.have.property('status').to.equal("success")
     }
     else {
