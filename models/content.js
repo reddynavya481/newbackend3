@@ -5,8 +5,9 @@ module.exports = (sequelize, DataTypes) => {
     contenturl: DataTypes.STRING,
     TopicId: DataTypes.INTEGER
   }, {});
-  Content.associate = function(models) {
+  Content.associate = function (models) {
     // associations can be defined here
+    models.Topic.hasMany(Content, { forignKey: 'topicFK' })
   };
   return Content;
 };

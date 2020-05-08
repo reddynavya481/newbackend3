@@ -6,15 +6,15 @@ module.exports = (sequelize, DataTypes) => {
     password: DataTypes.STRING,
     typ: DataTypes.STRING
   }, {});
-  User.associate = function(models) {
+  User.associate = function (models) {
     // associations can be defined here
   };
   User.prototype.comparePassword = function (passw, cb) {
     bcrypt.compare(passw, this.password, function (err, isMatch) {
-        if (err) {
-            return cb(err);
-        }
-        cb(null, isMatch);
+      if (err) {
+        return cb(err);
+      }
+      cb(null, isMatch);
     });
   };
   User.beforeSave((user, options) => {

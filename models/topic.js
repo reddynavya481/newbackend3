@@ -5,8 +5,9 @@ module.exports = (sequelize, DataTypes) => {
     topicurl: DataTypes.STRING,
     courseId: DataTypes.INTEGER
   }, {});
-  Topic.associate = function(models) {
+  Topic.associate = function (models) {
     // associations can be defined here
+    models.Course.hasMany(Topic, { foreignKey: 'courseFK' })
   };
   return Topic;
 };

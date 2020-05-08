@@ -1,16 +1,5 @@
 const express = require('express');
-// const app = express.Router();
-// const express = require('express');
-const bodyParser = require('body-parser');
 const app = express();
-const cors=require('cors')
-// const apps = require('./apps');
-app.use(bodyParser.json()); 
-const port = 8000;
-app.use(cors())
-// app.use('/', apps);
-
-
 
 const createUser = require('../controllers/login/userRegister')
 const loginuser = require('../controllers/login/userLogin')
@@ -53,12 +42,12 @@ app.post('/content1/:toname', contV, addContent)
 app.delete('/delcont/:contname', delcont)
 app.get('/content/:tname', getContent)
 
-app.listen(port, (error) => {
-  if (error) {
-      console.log(error);
-  } else {
-      console.log("Server started on port " + port);
-  }
-})
+// app.listen(port, (error) => {
+//   if (error) {
+//       console.log(error);
+//   } else {
+//       console.log("Server started on port " + port);
+//   }
+// })
 
 module.exports = app;

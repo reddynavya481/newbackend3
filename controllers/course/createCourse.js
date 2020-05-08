@@ -10,19 +10,25 @@
  * @param {object} error
  */
 
-const logger=require('../../logger')
+const logger = require('../../logger')
 const models = require('../../models');
+const jwt = require('jsonwebtoken')
 const createCourse = async (req, res, next) => {
     try {
+        const token = req.headers['access-token']
+        const payload = jwt.decode(token)
+        jwt.verify(token, 'nodeauthsecret', function (err, data) {
+            console.log(`UserName:${payload.username}`);
+        })
         const activity = { ...req.body }
         const act = await models.Course.create(activity)
-        
+
         res.status(201).json({
             status: "success",
             message: "course created",
             act
         })
-        logger.info({ ...req.body, action: "create"})
+        logger.info({ ...req.body, action: "create" })
         logger.info("course created")
     }
     catch (error) {

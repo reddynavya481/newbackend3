@@ -7,7 +7,7 @@ module.exports=describe("POST /topic1/:coname", () => {
   it("add topic", async () => {
     let response = await chai
       .request(app)
-      .post("/topic1/"+"machine learning")
+      .post("/topic1/"+"machine ulearning")
       .send({
        "topicname": "ml basics"
       })
@@ -19,14 +19,13 @@ module.exports=describe("POST /topic1/:coname", () => {
       }
       else {
         expect(response.body).be.a('object')
-        if (response.body.error == undefined) {
-          expect(response).to.have.status(400);
-          expect(response.body).to.have.property('status').to.equal("fail")
+        expect(response).to.have.status(400);
+        expect(response.body).to.have.property('status').to.equal("fail")
         }
-        else {
-          expect(response).to.have.status(500);
-          expect(response.body).to.have.property('status').to.equal("fail")
-        }
-      }
+        // else {
+        //   expect(response).to.have.status(500);
+        //   expect(response.body).to.have.property('status').to.equal("fail")
+        // }
+      })
     });
-  });
+ 

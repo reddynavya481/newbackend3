@@ -10,7 +10,7 @@ describe("POST /registeruser", () => {
       .request(app)
       .post('/registeruser')
       .send({
-       "username": "navyakaynew3",
+       "username": "nav567",
         "password": "abc",
         "typ":"user"
       })
