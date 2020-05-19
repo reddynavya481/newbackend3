@@ -21,8 +21,23 @@ const addContent = async (req, res, next) => {
         topicname: req.params.toname
       }
     })
+    // const user=await models.User.findOne({
+    //   where:{
+    //     id:req.body.userId
+    //   }
+    // })
+    // if(!user){
+    //   res.status(401).json({
+    //     status: "fail",
+    //     message: "userNot found",
+    //     error
+    //   })
+    // }
     logger.info({ topic_name: req.params.toname, action: "findOne" })
-    const content = { ...req.body, TopicId: topic.id }
+    const content = { ...req.body, TopicId: topic.id 
+      // ,userId:user.id
+    }
+    console.log(content)
     const act = await models.Content.create(content)
     res.status(201).json({
       status: "success",

@@ -16,6 +16,7 @@ const logger = require('../../logger')
 const models = require('../../models');
 const jwt = require('jsonwebtoken')
 const loginuser = async (req, res, next) => {
+  try{
   const user = await models.User.findOne({
     where: {
       username: req.body.username,
@@ -31,13 +32,18 @@ const loginuser = async (req, res, next) => {
   logger.info({ username: req.body.username, action: "findOne" })
   user.comparePassword(req.body.password, (err, isMatch) => {
     if (isMatch && !err) {
-      var token = jwt.sign({ username: req.body.username }, 'nodeauthsecret');
+      var token = jwt.sign({ id: req.body.id }, 'nodeauthsecret');
       res.status(200).json({ success: true, token: token, user: user });
     } else {
       logger.error("password didnt match")
       res.status(401).send({ success: false, msg: 'Authentication failed. Wrong password.' });
     }
   })
+}
+catch(error){
+  logger.error(error.name)
+  next(error)
+}
 }
 
 module.exports = loginuser

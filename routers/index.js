@@ -23,10 +23,12 @@ const getContent = require('../controllers/content/getCont')
 const addContent = require('../controllers/content/createCont')
 const delcont = require('../controllers/content/delCont')
 const contV = require('../validators/contentValidator')
+const updateCS = require('../controllers/content/updateCS')
+const getstatus= require('../controllers/content/getstatus')
 
 app.post('/loginuser', loginuser)
 app.post('/loginadmin', loginadmin)
-app.post('/registeruser', createUser)
+app.post('/registeruser', loginV, createUser)
 
 app.delete('/delete/:cname', deleteCourse)
 app.post('/course', courseV, createCourse)
@@ -41,13 +43,9 @@ app.get('/topic/:cname', getTopic)
 app.post('/content1/:toname', contV, addContent)
 app.delete('/delcont/:contname', delcont)
 app.get('/content/:tname', getContent)
+// app.put('/status/:toname', updateCS)
+app.get('/status/:un',getstatus)
+app.put('/updatestatus',updateCS)
 
-// app.listen(port, (error) => {
-//   if (error) {
-//       console.log(error);
-//   } else {
-//       console.log("Server started on port " + port);
-//   }
-// })
 
 module.exports = app;

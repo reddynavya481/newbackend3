@@ -13,9 +13,6 @@
  */
 
 
-
-
-
 const models = require('../../models');
 const logger=require('../../logger')
 const createUser = async (req, res, next) => {
@@ -33,7 +30,7 @@ const createUser = async (req, res, next) => {
       logger.warn({ username:req.body.username,message:"user already exists",action: "findOne"})
     }
     else {
-      const user = await models.User.create(req.body)
+      const user = await models.User.create({...req.body,typ:"user"})
       res.status(201).json({
         user,
         message: "account created",
